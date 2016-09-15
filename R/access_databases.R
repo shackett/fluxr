@@ -6,7 +6,7 @@
 #' @param classification type of kegg classification to use: either module or pathway
 #' @param optional character vector of gene names to return
 #'
-#' @retun tibble of KEGG gene names and their corresponding pathway codes and names
+#' @return tibble of KEGG gene names and their corresponding pathway codes and names
 #'
 #' @export
 #'
@@ -33,7 +33,7 @@ associated_genes_with_kegg <- function(organism_code, classification = "module",
   gene_classes <- gene_class_ids %>% dplyr::inner_join(gene_class_codes, by = "kegg_class_id") %>%
     dplyr::mutate(gene = sub('^[a-z]+:', '', kegg_gene_id))
 
-  if(!is.null(gene_classes)){
+  if(!is.null(genes)){
     gene_classes <- gene_classes %>%
       dplyr::filter(gene %in% genes)
   }

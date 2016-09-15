@@ -14,6 +14,9 @@ associated_genes_with_kegg(organism_code, classification = "module",
 
 \item{optional}{character vector of gene names to return}
 }
+\value{
+tibble of KEGG gene names and their corresponding pathway codes and names
+}
 \description{
 Find KEGG pathway IDs and names associated with an organisms' genes
 }
