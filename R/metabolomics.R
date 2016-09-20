@@ -14,6 +14,9 @@
 #' @examples
 #' directory = system.file("extdata", "maven_axon.xlsx", package = "fluxr")
 #' read_MAVEN_data(directory)
+#'
+#' directory = system.file("extdata", "maven_axon_isotopes.xlsx", package = "fluxr")
+#' read_MAVEN_data(directory)
 read_MAVEN_data <- function(directory, ...){
 
   possible_id_variables <- c("label", "metaGroupId", "groupId", "goodPeakCount", "medMz", "medRt", "maxQuality", "note",
