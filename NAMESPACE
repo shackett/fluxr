@@ -2,4 +2,6 @@
 
 export(associated_genes_with_kegg)
 export(extended_gene_annotation)
+export(normalize_metabolomics)
+export(read_MAVEN_data)
 importFrom(magrittr,"%>%")
