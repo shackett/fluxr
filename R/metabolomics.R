@@ -90,5 +90,33 @@ normalize_metabolomics <- function(metabolomics_data){
 
   }
 
+#' Convert Metabolomics to Wide Output
+#'
+#' Convert normalized metabolomics data to wide-data and save to output
+#'
+#' @param normalized_data
+#' @param metabolite_data
+#' @param output
+#' @return writes a tsv to output
+#'
+#' @export
+#' @examples
+#' directory = system.file("extdata", "maven_axon.xlsx", package = "fluxr")
+#' maven_data <- read_MAVEN_data(directory)
+#' normalized_data <- normalize_metabolomics(maven_data$metabolomics_data)
+#' metabolite_info <- maven_data$metabolite_info
+#' convert_metabolomics_to_wide_output(output = "fluxr_trial_output.txt")
+convert_metabolomics_to_wide_output <- function(normalized_data, metabolite_info, output){
+
+  wide_metabolite_data <- normalized_data %>%
+    dplyr::select(metabolite_row, sample, IC_normalized) %>%
+    tidyr::spread(key = sample, value = IC_normalized)
+
+  output_data <- metabolite_info %>%
+    dplyr::left_join(wide_metabolite_data, by = "metabolite_row")
+
+  write.table(output_data, file = output, sep = "\t", col.names = T, row.names = F, quote = F)
+
+  }
 
 
