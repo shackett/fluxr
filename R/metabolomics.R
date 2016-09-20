@@ -1,20 +1,20 @@
-
 #' Read MAVEN Data
 #'
-#' Reads a MAVEN datafile from directory
+#' Reads a MAVEN datafile from directory.
 #'
 #' @param directory a pathway pointing to an input file which is either .xlsx or tab-delimited txt/tsv
 #'
 #' @return a list:
 #' metabolite_info: information specific to an individual metabolite
 #' metabolomics_data: metabolite abundances (ion counts) in each sample in tidy format
-#'
 #' @export
 #'
 #' @examples
+#' # load MAVEN data from an excel file (tab-delimited .txt and .tsv are also accepted)
 #' directory = system.file("extdata", "maven_axon.xlsx", package = "fluxr")
 #' read_MAVEN_data(directory)
 #'
+#' # loading data with isotopologue abundances
 #' directory = system.file("extdata", "maven_axon_isotopes.xlsx", package = "fluxr")
 #' read_MAVEN_data(directory)
 read_MAVEN_data <- function(directory, ...){
@@ -64,7 +64,6 @@ read_MAVEN_data <- function(directory, ...){
 #' @param metabolomics_data a tidy data.frame generated from \code{\link{read_MAVEN_data}}
 #'
 #' @return metabolomics_data with an added column containing normalized ion counts
-#'
 #' @export
 #'
 #' @examples
@@ -92,14 +91,15 @@ normalize_metabolomics <- function(metabolomics_data){
 
 #' Convert Metabolomics to Wide Output
 #'
-#' Convert normalized metabolomics data to wide-data and save to output
+#' Convert normalized metabolomics data to wide-data and save to output.
 #'
-#' @param normalized_data
-#' @param metabolite_data
-#' @param output
+#' @param normalized_data Normalized metabolomics quantitative data
+#' @param metabolite_info Information specific to each measured metabolite
+#' @param output Path to output
+#'
 #' @return writes a tsv to output
-#'
 #' @export
+#'
 #' @examples
 #' directory = system.file("extdata", "maven_axon.xlsx", package = "fluxr")
 #' maven_data <- read_MAVEN_data(directory)

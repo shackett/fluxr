@@ -1,10 +1,10 @@
-#' Associate genes with KEGG
+#' @title Associate genes with KEGG
 #'
-#' Find KEGG pathway IDs and names associated with an organisms' genes
+#' @description Find KEGG pathway IDs and names associated with an organisms' genes.
 #'
 #' @param organism_code a three letter code
 #' @param classification type of kegg classification to use: either module or pathway
-#' @param optional character vector of gene names to return
+#' @param genes optional character vector of gene names to return
 #'
 #' @return tibble of KEGG gene names and their corresponding pathway codes and names
 #'
@@ -44,6 +44,8 @@ associated_genes_with_kegg <- function(organism_code, classification = "module",
 
 #' Extended Gene Annotation
 #'
+#' Using BioMart, download a map between organism-specific systematic and common gene names and gene descriptions.
+#'
 #' @param dataset a biomaRt dataset contained within listDatasets(useMart('ensembl'))
 #'
 #' @return a tibble combining multiple IDs for a gene
@@ -61,9 +63,32 @@ extended_gene_annotation <- function(dataset){
   extended_annotations
 }
 
+find_all_BRENDA_ec <- function(){
 
+  ec_page <- xml2::read_html("http://www.brenda-enzymes.org/all_enzymes.php")
+
+  ec_numbers <- ec_page %>%
+    rvest::html_nodes(".header:nth-child(1), .cell:nth-child(1), .header:nth-child(2), .cell:nth-child(2), .header:nth-child(3), .cell:nth-child(3)") %>%
+    rvest::html_text() %>%
+    matrix(ncol = 3, byrow = T)
+
+  colnames(ec_numbers) <- ec_numbers[1,]
+  ec_numbers <- ec_numbers[-1,]
+
+  tibble::as_data_frame(ec_numbers) %>%
+    dplyr::mutate(History_summary = ifelse(grepl('(transferred)|(deleted)', History), "Invalid", "Valid"))
+
+}
+
+#' Download BRENDA Regulators
 #'
+#' Calls python to summarize all regulators in BRENDA by E.C. number.
 download_BRENDA_regulators <- function(){
 # all EC numbers  "http://www.brenda-enzymes.org/all_enzymes.php"
+
+
+
+
+
 }
 

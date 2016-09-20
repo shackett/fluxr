@@ -15,10 +15,15 @@ metabolite_info: information specific to an individual metabolite
 metabolomics_data: metabolite abundances (ion counts) in each sample in tidy format
 }
 \description{
-Reads a MAVEN datafile from directory
+Reads a MAVEN datafile from directory.
 }
 \examples{
+# load MAVEN data from an excel file (tab-delimited .txt and .tsv are also accepted)
 directory = system.file("extdata", "maven_axon.xlsx", package = "fluxr")
+read_MAVEN_data(directory)
+
+# loading data with isotopologue abundances
+directory = system.file("extdata", "maven_axon_isotopes.xlsx", package = "fluxr")
 read_MAVEN_data(directory)
 }
 

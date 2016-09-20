@@ -13,7 +13,7 @@ extended_gene_annotation(dataset)
 a tibble combining multiple IDs for a gene
 }
 \description{
-Extended Gene Annotation
+Using BioMart, download a map between organism-specific systematic and common gene names and gene descriptions.
 }
 \examples{
 extended_gene_annotation("scerevisiae_gene_ensembl")
