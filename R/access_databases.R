@@ -31,7 +31,7 @@ associated_genes_with_kegg <- function(organism_code, classification = "module",
   }else{stop('"classification" type not supported')}
 
   gene_classes <- gene_class_ids %>% dplyr::inner_join(gene_class_codes, by = "kegg_class_id") %>%
-    dplyr::mutate(gene = sub('^[a-z]+:', '', kegg_gene_id))
+    dplyr::mutate(systematic_gene = sub('^[a-z]+:', '', kegg_gene_id))
 
   if(!is.null(genes)){
     gene_classes <- gene_classes %>%
@@ -40,3 +40,30 @@ associated_genes_with_kegg <- function(organism_code, classification = "module",
 
   gene_classes
 }
+
+
+#' Extended Gene Annotation
+#'
+#' @param dataset a biomaRt dataset contained within listDatasets(useMart('ensembl'))
+#'
+#' @return a tibble combining multiple IDs for a gene
+#' @export
+#'
+#' @examples
+#' extended_gene_annotation("scerevisiae_gene_ensembl")
+extended_gene_annotation <- function(dataset){
+
+  ensembl = biomaRt::useMart("ensembl", dataset = dataset)
+
+  extended_annotations <- biomaRt::getBM(attributes = c('ensembl_gene_id', 'external_gene_name', 'description'), mart = ensembl)
+  colnames(extended_annotations) <- c("systematic_gene", "common_gene", "gene_description")
+
+  extended_annotations
+}
+
+
+#'
+download_BRENDA_regulators <- function(){
+# all EC numbers  "http://www.brenda-enzymes.org/all_enzymes.php"
+}
+
